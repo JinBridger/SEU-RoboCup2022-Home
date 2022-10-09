@@ -1,0 +1,29 @@
+<launch>
+    <include file="$(find mbot_gazebo)/launch/mbot_laser_nav_gazebo.launch" />
+
+    <!-- 设置地图的配置文件 -->
+    <arg name="map" default="robocup_gmapping.yaml" />
+
+    <!-- 运行地图服务器，并且加载设置的地图-->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find mbot_navigation)/maps/$(arg map)"/>
+
+    <!-- 运行move_base节点 -->
+    <include file="$(find mbot_navigation)/launch/move_base.launch"/>
+
+    <!-- 启动AMCL节点 -->
+    <include file="$(find mbot_navigation)/launch/amcl.launch" />
+
+
+    <!-- 对于虚拟定位，需要设置一个/odom与/map之间的静态坐标变换 -->
+    <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 /map /odom 100" />
+
+    <!-- 运行rviz -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find mbot_navigation)/rviz/nav.rviz"/>
+
+
+    <node pkg="rqt_image_view" type="rqt_image_view" name="rqt_image_view"/>
+
+    <node pkg="image_view" type="image_saver" name="image_saver" args="image:=/camera/rgb/image_raw _save_all_image:=false _filename_format:=/home/mrziyi/RoboCup/Final/images/imageTaken/image%01i.jpg __name:=image_saver"/>
+
+
+</launch>

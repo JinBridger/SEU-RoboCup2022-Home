@@ -1,0 +1,16 @@
+material Mark/image2
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+	texture image2.jpg			
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}

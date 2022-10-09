@@ -1,0 +1,16 @@
+material Mark/image6
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+	texture image6.jpg			
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}

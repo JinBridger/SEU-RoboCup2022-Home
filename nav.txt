@@ -1,0 +1,2 @@
+roslaunch mbot_navigation nav_cloister_demo.launch
+rosrun mbot_navigation exploring_slam.py  
